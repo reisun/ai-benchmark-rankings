@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Benchmark Rankings</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>AI Benchmark Rankings</h1>
+      <p class="subtitle">主要AIモデルのベンチマーク比較</p>
+      <p class="last-updated" id="lastUpdated"></p>
+    </div>
+  </header>
+
+  <main>
+    <!-- Benchmark cards -->
+    <section class="benchmark-info">
+      <h2>評価指標</h2>
+      <div class="cards" id="benchmarkCards"></div>
+    </section>
+
+    <!-- Radar chart comparison -->
+    <section class="chart-section">
+      <h2>レーダーチャート比較</h2>
+      <div class="chart-controls">
+        <p class="chart-hint">比較するモデルを選択（最大5つ）:</p>
+        <div class="model-toggles" id="modelToggles"></div>
+      </div>
+      <div class="chart-container">
+        <canvas id="radarChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Rankings table -->
+    <section class="table-section">
+      <h2>ランキングテーブル</h2>
+      <div class="table-wrapper">
+        <table id="rankingsTable">
+          <thead>
+            <tr id="tableHeader"></tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Data is approximate and may not reflect the latest scores. Sources: LMSYS Chatbot Arena, Papers with Code, official model reports.</p>
+    <p>&copy; 2026 AI Benchmark Rankings</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
