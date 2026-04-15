@@ -1,12 +1,31 @@
-# ai-benchmark-rankings
+# AI Benchmark Rankings
 
-GitHub Pagesで公開するAIモデル評価ランキングサイトを作成する。
+主要AIモデルのベンチマークスコアを比較するランキングサイト。
 
-要件:
-- 主要AIモデル（GPT-4o, Claude 4 Opus/Sonnet, Gemini 2.5 Pro, Llama 4, DeepSeek-R1, Qwen3など）の最新ベンチマークスコアを表示
-- 評価軸: Chatbot Arena ELO, MMLU, HumanEval, SWE-bench, MATH/AIME, GPQA Diamond
-- テーブル形式でソート可能 + レーダーチャートで視覚的比較
-- レスポンシブデザイン（モバイル対応）
-- 静的サイト（HTML/CSS/JS）でGitHub Pages対応
-- データはJSONファイルで管理し、更新しやすい構成にする
-- ダークモードのモダンなUI
+**Live site**: https://reisun.github.io/ai-benchmark-rankings/
+
+## Features
+
+- 6つのベンチマーク指標でAIモデルを比較（Arena ELO, MMLU, HumanEval, SWE-bench, MATH, GPQA Diamond）
+- ソート可能なランキングテーブル
+- レーダーチャートによる視覚的比較（最大5モデル選択可能）
+- ダークモードのモダンUI / レスポンシブ対応
+
+## Data Pipeline
+
+GitHub Actionsにより自動デプロイ:
+
+- **トリガー**: `main`ブランチへのpush / 毎日09:00 JST / 手動実行
+- **データ取得**: `scripts/fetch_data.py` が公開APIからベンチマークデータを取得
+- **タイムスタンプ**: デプロイ時刻が「最終更新日時」としてサイトに反映
+
+### 手動でデータ更新
+
+`data/benchmarks.json` を直接編集してpushすることでも更新可能。
+
+## Tech Stack
+
+- HTML / CSS / Vanilla JS
+- Chart.js (レーダーチャート)
+- GitHub Actions (CI/CD)
+- GitHub Pages (ホスティング)

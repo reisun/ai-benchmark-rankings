@@ -16,7 +16,7 @@ async function init() {
   const resp = await fetch('data/benchmarks.json');
   data = await resp.json();
 
-  document.getElementById('lastUpdated').textContent = `Last updated: ${data.lastUpdated}`;
+  document.getElementById('lastUpdated').textContent = `最終更新: ${data.lastUpdated}`;
 
   renderBenchmarkCards();
   initModelToggles();
