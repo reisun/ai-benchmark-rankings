@@ -78,7 +78,7 @@
       }
     },
     {
-      "name": "ChatGPT (GPT-4o)",
+      "name": "ChatGPT",
       "provider": "OpenAI",
       "releaseDate": "2025-08",
       "scores": {
@@ -91,7 +91,7 @@
       }
     },
     {
-      "name": "Codex (o3)",
+      "name": "Codex",
       "provider": "OpenAI",
       "releaseDate": "2025-12",
       "scores": {
