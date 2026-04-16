@@ -104,19 +104,6 @@
       }
     },
     {
-      "name": "Codex (o4-mini)",
-      "provider": "OpenAI",
-      "releaseDate": "2025-04",
-      "scores": {
-        "arena_elo": null,
-        "mmlu": null,
-        "humaneval": null,
-        "swe_bench": null,
-        "math": null,
-        "gpqa": null
-      }
-    },
-    {
       "name": "Gemini 2.5 Pro",
       "provider": "Google",
       "releaseDate": "2025-12",
