@@ -1,97 +1,44 @@
 #!/usr/bin/env python3
 """
-Fetch latest AI benchmark data from public sources.
+Fetch latest AI benchmark data from lmarena-ai/leaderboard-dataset.
 
-Sources:
-- lmarena.ai (Chatbot Arena ELO)
-- swebench.com (SWE-bench Verified)
-- Other scores from public leaderboards / official reports
-
+Updates Arena ELO scores from the HuggingFace dataset.
+Other benchmark scores (MMLU, HumanEval, SWE-bench, MATH, GPQA) are kept as-is.
 Falls back to existing data if fetching fails.
 """
 
 import json
-import re
 import sys
-import urllib.request
-import urllib.error
 from datetime import datetime, timezone, timedelta
 
 DATA_FILE = "data/benchmarks.json"
 
-# Model name normalization mapping
-MODEL_ALIASES = {
-    # Arena names -> our canonical names
-    "claude-4-opus": "Claude 4 Opus",
-    "claude-4-sonnet": "Claude 4 Sonnet",
-    "gpt-4o": "GPT-4o",
+MODEL_NAME_MAP = {
+    "claude-opus-4-6-thinking": "Claude 4 Opus",
+    "claude-opus-4-6": "Claude 4 Opus",
+    "claude-sonnet-4-6-thinking": "Claude 4 Sonnet",
+    "claude-sonnet-4-6": "Claude 4 Sonnet",
+    "chatgpt-4o-latest-20250326": "GPT-4o",
+    "gpt-4o-2024-08-06": "GPT-4o",
+    "gpt-4o-2024-05-13": "GPT-4o",
     "o3": "o3",
+    "o3-2025-04-16": "o3",
     "gemini-2.5-pro": "Gemini 2.5 Pro",
-    "llama-4-maverick": "Llama 4 Maverick",
+    "gemini-2.5-pro-exp-03-25": "Gemini 2.5 Pro",
+    "llama-4-maverick-17b-128e-instruct": "Llama 4 Maverick",
     "deepseek-r1": "DeepSeek-R1",
+    "qwen3-235b-a22b": "Qwen3 235B",
     "qwen3-235b": "Qwen3 235B",
     "mistral-large-2": "Mistral Large 2",
-    "grok-3": "Grok-3",
+    "mistral-large-2411": "Mistral Large 2",
+    "grok-3-preview-02-24": "Grok-3",
+    "grok-3-mini-high": "Grok-3",
 }
 
-# Known models we track
-TRACKED_MODELS = set(MODEL_ALIASES.values())
-
-
-def fetch_url(url, timeout=30):
-    """Fetch URL content with error handling."""
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "AI-Benchmark-Rankings/1.0"})
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return resp.read().decode("utf-8")
-    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as e:
-        print(f"  Warning: Failed to fetch {url}: {e}", file=sys.stderr)
-        return None
-
-
-def fetch_arena_elo():
-    """Attempt to fetch Chatbot Arena ELO scores from lmarena.ai."""
-    print("Fetching Chatbot Arena ELO data...")
-    # Try the known API endpoint
-    urls = [
-        "https://lmarena.ai/api/v1/leaderboard",
-        "https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard/resolve/main/results.json",
-    ]
-    for url in urls:
-        content = fetch_url(url)
-        if content:
-            try:
-                data = json.loads(content)
-                print(f"  Successfully fetched from {url}")
-                return data
-            except json.JSONDecodeError:
-                continue
-    print("  Could not fetch Arena ELO data from any source")
-    return None
-
-
-def fetch_swebench():
-    """Attempt to fetch SWE-bench Verified scores."""
-    print("Fetching SWE-bench data...")
-    urls = [
-        "https://www.swebench.com/api/leaderboard",
-        "https://raw.githubusercontent.com/princeton-nlp/SWE-bench/main/docs/leaderboard.json",
-    ]
-    for url in urls:
-        content = fetch_url(url)
-        if content:
-            try:
-                data = json.loads(content)
-                print(f"  Successfully fetched from {url}")
-                return data
-            except json.JSONDecodeError:
-                continue
-    print("  Could not fetch SWE-bench data from any source")
-    return None
+TRACKED_MODELS = set(MODEL_NAME_MAP.values())
 
 
 def load_existing_data():
-    """Load existing benchmarks.json."""
     try:
         with open(DATA_FILE, "r") as f:
             return json.load(f)
@@ -100,8 +47,50 @@ def load_existing_data():
         return None
 
 
+def fetch_arena_elo():
+    """Fetch Arena ELO from lmarena-ai/leaderboard-dataset via HuggingFace datasets."""
+    print("Fetching Chatbot Arena ELO from lmarena-ai/leaderboard-dataset...")
+    try:
+        from datasets import load_dataset
+        dataset = load_dataset("lmarena-ai/leaderboard-dataset", "text", split="latest")
+        df = dataset.to_pandas()
+        overall = df[df["category"] == "overall"].copy()
+        print(f"  Loaded {len(overall)} overall entries")
+        return overall
+    except Exception as e:
+        print(f"  Failed to fetch Arena ELO: {e}", file=sys.stderr)
+        return None
+
+
+def update_arena_scores(data, arena_df):
+    """Update Arena ELO scores in data from the fetched dataframe."""
+    model_lookup = {m["name"]: m for m in data["models"]}
+    updated_count = 0
+
+    best_per_canonical = {}
+    for _, row in arena_df.iterrows():
+        raw_name = row["model_name"]
+        canonical = MODEL_NAME_MAP.get(raw_name)
+        if canonical is None:
+            continue
+        rating = round(row["rating"], 1)
+        if canonical not in best_per_canonical or rating > best_per_canonical[canonical]:
+            best_per_canonical[canonical] = rating
+
+    for canonical, rating in best_per_canonical.items():
+        if canonical in model_lookup:
+            old = model_lookup[canonical]["scores"].get("arena_elo")
+            model_lookup[canonical]["scores"]["arena_elo"] = int(round(rating))
+            print(f"  {canonical}: {old} -> {int(round(rating))}")
+            updated_count += 1
+        else:
+            print(f"  Skipped (not in models list): {canonical} = {rating}")
+
+    print(f"  Updated {updated_count} model(s)")
+    return updated_count > 0
+
+
 def update_timestamp(data):
-    """Update the lastUpdated field with current JST time."""
     jst = timezone(timedelta(hours=9))
     now = datetime.now(jst)
     data["lastUpdated"] = now.strftime("%Y-%m-%d %H:%M JST")
@@ -113,37 +102,20 @@ def main():
     print("AI Benchmark Rankings - Data Fetch")
     print("=" * 50)
 
-    # Load existing data as base
     data = load_existing_data()
     if not data:
         print("ERROR: No existing data found. Cannot proceed.", file=sys.stderr)
         sys.exit(1)
 
-    # Try to fetch live data from sources
-    arena_data = fetch_arena_elo()
-    swebench_data = fetch_swebench()
+    arena_df = fetch_arena_elo()
 
-    updated = False
+    if arena_df is not None and len(arena_df) > 0:
+        update_arena_scores(data, arena_df)
+    else:
+        print("\nNo live data available. Using existing data with updated timestamp.")
 
-    # Update Arena ELO if we got data
-    if arena_data and isinstance(arena_data, (list, dict)):
-        print("  Processing Arena ELO data...")
-        # Data format varies; try to extract what we can
-        # This is best-effort - the API format may change
-        updated = True
-
-    # Update SWE-bench if we got data
-    if swebench_data and isinstance(swebench_data, (list, dict)):
-        print("  Processing SWE-bench data...")
-        updated = True
-
-    if not updated:
-        print("\nNo live data sources available. Using existing data with updated timestamp.")
-
-    # Always update timestamp to reflect when this deploy happened
     data = update_timestamp(data)
 
-    # Write updated data
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
         f.write("\n")

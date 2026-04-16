@@ -29,6 +29,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install dependencies
+        run: pip install datasets pandas
+
       - name: Fetch latest benchmark data
         run: python scripts/fetch_data.py
 
