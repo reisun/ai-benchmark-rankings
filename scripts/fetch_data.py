@@ -82,14 +82,17 @@ def update_arena_scores(data, arena_df):
         if canonical is None:
             continue
         rating = round(row["rating"], 1)
-        if canonical not in best_per_canonical or rating > best_per_canonical[canonical]:
-            best_per_canonical[canonical] = rating
+        if canonical not in best_per_canonical or rating > best_per_canonical[canonical]["rating"]:
+            best_per_canonical[canonical] = {"rating": rating, "variant": raw_name}
 
-    for canonical, rating in best_per_canonical.items():
+    for canonical, info in best_per_canonical.items():
+        rating = info["rating"]
+        variant = info["variant"]
         if canonical in model_lookup:
             old = model_lookup[canonical]["scores"].get("arena_elo")
             model_lookup[canonical]["scores"]["arena_elo"] = int(round(rating))
-            print(f"  {canonical}: {old} -> {int(round(rating))}")
+            model_lookup[canonical]["arenaVariant"] = variant
+            print(f"  {canonical}: {old} -> {int(round(rating))} ({variant})")
             updated_count += 1
         else:
             print(f"  Skipped (not in models list): {canonical} = {rating}")

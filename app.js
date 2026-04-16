@@ -224,7 +224,7 @@ function renderTableBody() {
 
     return `<tr>
       <td class="rank-cell ${rankClass}">${rank}</td>
-      <td class="model-name">${model.name}<span class="provider-badge">${model.provider}</span></td>
+      <td class="model-name" ${model.arenaVariant ? `title="Arena model: ${model.arenaVariant}"` : ''}>${model.name}<span class="provider-badge">${model.provider}</span></td>
       ${scoreCells}
     </tr>`;
   }).join('');
