@@ -193,6 +193,19 @@
         "math": 83.2,
         "gpqa": 63.7
       }
+    },
+    {
+      "name": "Grok-4",
+      "provider": "xAI",
+      "releaseDate": "2025-12",
+      "scores": {
+        "arena_elo": null,
+        "mmlu": null,
+        "humaneval": null,
+        "swe_bench": null,
+        "math": null,
+        "gpqa": null
+      }
     }
   ]
 }
