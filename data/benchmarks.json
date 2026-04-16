@@ -78,7 +78,7 @@
       }
     },
     {
-      "name": "GPT-4o",
+      "name": "ChatGPT (GPT-4o)",
       "provider": "OpenAI",
       "releaseDate": "2025-08",
       "scores": {
@@ -91,7 +91,7 @@
       }
     },
     {
-      "name": "o3",
+      "name": "Codex (o3)",
       "provider": "OpenAI",
       "releaseDate": "2025-12",
       "scores": {
@@ -101,6 +101,19 @@
         "swe_bench": 71.7,
         "math": 96.7,
         "gpqa": 87.7
+      }
+    },
+    {
+      "name": "Codex (o4-mini)",
+      "provider": "OpenAI",
+      "releaseDate": "2025-04",
+      "scores": {
+        "arena_elo": null,
+        "mmlu": null,
+        "humaneval": null,
+        "swe_bench": null,
+        "math": null,
+        "gpqa": null
       }
     },
     {
