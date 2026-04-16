@@ -167,7 +167,8 @@ function renderTableHeader() {
   const tr = document.getElementById('tableHeader');
   const cols = [
     { key: 'rank', label: '#' },
-    { key: 'name', label: 'Model' },
+    { key: 'name', label: 'Series' },
+    { key: 'variant', label: 'Model' },
     ...data.benchmarks.map(b => ({ key: b.id, label: b.name })),
   ];
 
@@ -205,8 +206,10 @@ function renderTableBody() {
 
   // Sort models
   const sorted = [...data.models].sort((a, b) => {
-    if (sortColumn === 'name') {
-      return sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+    if (sortColumn === 'name' || sortColumn === 'variant') {
+      const aVal = sortColumn === 'variant' ? (a.arenaVariant || '') : a.name;
+      const bVal = sortColumn === 'variant' ? (b.arenaVariant || '') : b.name;
+      return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
     }
     const aVal = a.scores[sortColumn] || 0;
     const bVal = b.scores[sortColumn] || 0;
@@ -224,7 +227,8 @@ function renderTableBody() {
 
     return `<tr>
       <td class="rank-cell ${rankClass}">${rank}</td>
-      <td class="model-name" ${model.arenaVariant ? `title="Arena model: ${model.arenaVariant}"` : ''}>${model.name}<span class="provider-badge">${model.provider}</span></td>
+      <td class="model-name">${model.name}<span class="provider-badge">${model.provider}</span></td>
+      <td class="variant-cell">${model.arenaVariant || '-'}</td>
       ${scoreCells}
     </tr>`;
   }).join('');

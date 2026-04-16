@@ -250,6 +250,12 @@ tr:hover {
   font-weight: 600;
 }
 
+.variant-cell {
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  font-family: monospace;
+}
+
 .provider-badge {
   display: inline-block;
   font-size: 0.7rem;

@@ -23,8 +23,6 @@ MODEL_NAME_MAP = {
     "gpt-4o-2024-05-13": "ChatGPT (GPT-4o)",
     "o3": "Codex (o3)",
     "o3-2025-04-16": "Codex (o3)",
-    "o4-mini-2025-04-16": "Codex (o4-mini)",
-    "o4-mini": "Codex (o4-mini)",
     "gemini-2.5-pro": "Gemini 2.5 Pro",
     "gemini-2.5-pro-exp-03-25": "Gemini 2.5 Pro",
     "llama-4-maverick-17b-128e-instruct": "Llama 4 Maverick",
