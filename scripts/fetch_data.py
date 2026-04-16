@@ -35,6 +35,12 @@ MODEL_NAME_MAP = {
     "mistral-large-2411": "Mistral Large 2",
     "grok-3-preview-02-24": "Grok-3",
     "grok-3-mini-high": "Grok-3",
+    "grok-4.20-beta-0309-reasoning": "Grok-4",
+    "grok-4.20-beta1": "Grok-4",
+    "grok-4.20-multi-agent-beta-0309": "Grok-4",
+    "grok-4.1-thinking": "Grok-4",
+    "grok-4.1": "Grok-4",
+    "grok-4-0709": "Grok-4",
 }
 
 TRACKED_MODELS = set(MODEL_NAME_MAP.values())
