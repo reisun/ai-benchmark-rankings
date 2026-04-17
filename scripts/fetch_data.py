@@ -14,10 +14,14 @@ from datetime import datetime, timezone, timedelta
 DATA_FILE = "data/benchmarks.json"
 
 MODEL_NAME_MAP = {
-    "claude-opus-4-6-thinking": "Claude 4 Opus",
-    "claude-opus-4-6": "Claude 4 Opus",
-    "claude-sonnet-4-6-thinking": "Claude 4 Sonnet",
-    "claude-sonnet-4-6": "Claude 4 Sonnet",
+    "claude-opus-4-6-thinking": "Claude 4.6 Opus",
+    "claude-opus-4-6": "Claude 4.6 Opus",
+    "claude-sonnet-4-6-thinking": "Claude 4.6 Sonnet",
+    "claude-sonnet-4-6": "Claude 4.6 Sonnet",
+    "claude-opus-4-7-thinking": "Claude 4.7 Opus",
+    "claude-opus-4-7": "Claude 4.7 Opus",
+    "claude-sonnet-4-7-thinking": "Claude 4.7 Sonnet",
+    "claude-sonnet-4-7": "Claude 4.7 Sonnet",
     "chatgpt-4o-latest-20250326": "ChatGPT",
     "gpt-4o-2024-08-06": "ChatGPT",
     "gpt-4o-2024-05-13": "ChatGPT",

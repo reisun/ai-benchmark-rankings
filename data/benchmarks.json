@@ -52,7 +52,7 @@
   ],
   "models": [
     {
-      "name": "Claude 4 Opus",
+      "name": "Claude 4.6 Opus",
       "provider": "Anthropic",
       "releaseDate": "2026-03",
       "scores": {
@@ -65,7 +65,7 @@
       }
     },
     {
-      "name": "Claude 4 Sonnet",
+      "name": "Claude 4.6 Sonnet",
       "provider": "Anthropic",
       "releaseDate": "2026-02",
       "scores": {
@@ -75,6 +75,32 @@
         "swe_bench": 65.4,
         "math": 94.8,
         "gpqa": 71.5
+      }
+    },
+    {
+      "name": "Claude 4.7 Opus",
+      "provider": "Anthropic",
+      "releaseDate": "2026-04",
+      "scores": {
+        "arena_elo": null,
+        "mmlu": null,
+        "humaneval": null,
+        "swe_bench": null,
+        "math": null,
+        "gpqa": null
+      }
+    },
+    {
+      "name": "Claude 4.7 Sonnet",
+      "provider": "Anthropic",
+      "releaseDate": "2026-04",
+      "scores": {
+        "arena_elo": null,
+        "mmlu": null,
+        "humaneval": null,
+        "swe_bench": null,
+        "math": null,
+        "gpqa": null
       }
     },
     {
