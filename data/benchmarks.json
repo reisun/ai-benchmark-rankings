@@ -1,0 +1,236 @@
+{
+  "lastUpdated": "2026-04-26 11:34 JST",
+  "benchmarks": [
+    {
+      "id": "arena_elo",
+      "name": "Chatbot Arena ELO",
+      "description": "人間の投票ベースの総合評価スコア（LMSYS）",
+      "category": "総合",
+      "higherIsBetter": true,
+      "maxScore": null
+    },
+    {
+      "id": "mmlu",
+      "name": "MMLU",
+      "description": "57分野にわたる知識・推論力の評価（%）",
+      "category": "知識・推論",
+      "higherIsBetter": true,
+      "maxScore": 100
+    },
+    {
+      "id": "humaneval",
+      "name": "HumanEval",
+      "description": "Pythonコード生成の正答率（pass@1, %）",
+      "category": "コーディング",
+      "higherIsBetter": true,
+      "maxScore": 100
+    },
+    {
+      "id": "swe_bench",
+      "name": "SWE-bench Verified",
+      "description": "実際のGitHub Issue解決率（%）",
+      "category": "コーディング",
+      "higherIsBetter": true,
+      "maxScore": 100
+    },
+    {
+      "id": "math",
+      "name": "MATH",
+      "description": "競技数学レベルの問題正答率（%）",
+      "category": "数学",
+      "higherIsBetter": true,
+      "maxScore": 100
+    },
+    {
+      "id": "gpqa",
+      "name": "GPQA Diamond",
+      "description": "大学院レベルの科学知識問題正答率（%）",
+      "category": "科学",
+      "higherIsBetter": true,
+      "maxScore": 100
+    }
+  ],
+  "models": [
+    {
+      "name": "Claude 4.6 Opus",
+      "provider": "Anthropic",
+      "releaseDate": "2026-03",
+      "scores": {
+        "arena_elo": 1500,
+        "mmlu": 92.0,
+        "humaneval": 93.7,
+        "swe_bench": 72.0,
+        "math": 96.4,
+        "gpqa": 74.9
+      },
+      "arenaVariant": "claude-opus-4-6-thinking"
+    },
+    {
+      "name": "Claude 4.6 Sonnet",
+      "provider": "Anthropic",
+      "releaseDate": "2026-02",
+      "scores": {
+        "arena_elo": 1447,
+        "mmlu": 90.8,
+        "humaneval": 92.0,
+        "swe_bench": 65.4,
+        "math": 94.8,
+        "gpqa": 71.5
+      },
+      "arenaVariant": "claude-sonnet-4-6"
+    },
+    {
+      "name": "Claude 4.7 Opus",
+      "provider": "Anthropic",
+      "releaseDate": "2026-04",
+      "scores": {
+        "arena_elo": 1488,
+        "mmlu": null,
+        "humaneval": null,
+        "swe_bench": null,
+        "math": null,
+        "gpqa": null
+      },
+      "arenaVariant": "claude-opus-4-7-thinking"
+    },
+    {
+      "name": "Claude 4.7 Sonnet",
+      "provider": "Anthropic",
+      "releaseDate": "2026-04",
+      "scores": {
+        "arena_elo": null,
+        "mmlu": null,
+        "humaneval": null,
+        "swe_bench": null,
+        "math": null,
+        "gpqa": null
+      }
+    },
+    {
+      "name": "ChatGPT",
+      "provider": "OpenAI",
+      "releaseDate": "2025-08",
+      "scores": {
+        "arena_elo": 1429,
+        "mmlu": 88.7,
+        "humaneval": 90.2,
+        "swe_bench": 38.4,
+        "math": 76.6,
+        "gpqa": 53.6
+      },
+      "arenaVariant": "chatgpt-4o-latest-20250326"
+    },
+    {
+      "name": "Codex",
+      "provider": "OpenAI",
+      "releaseDate": "2025-12",
+      "scores": {
+        "arena_elo": 1409,
+        "mmlu": 91.5,
+        "humaneval": 92.8,
+        "swe_bench": 71.7,
+        "math": 96.7,
+        "gpqa": 87.7
+      },
+      "arenaVariant": "o3-2025-04-16"
+    },
+    {
+      "name": "Gemini 2.5 Pro",
+      "provider": "Google",
+      "releaseDate": "2025-12",
+      "scores": {
+        "arena_elo": 1460,
+        "mmlu": 90.2,
+        "humaneval": 91.5,
+        "swe_bench": 63.8,
+        "math": 86.4,
+        "gpqa": 68.4
+      },
+      "arenaVariant": "gemini-2.5-pro"
+    },
+    {
+      "name": "Llama 4 Maverick",
+      "provider": "Meta",
+      "releaseDate": "2025-12",
+      "scores": {
+        "arena_elo": 1288,
+        "mmlu": 88.2,
+        "humaneval": 85.5,
+        "swe_bench": 42.0,
+        "math": 78.4,
+        "gpqa": 62.1
+      },
+      "arenaVariant": "llama-4-maverick-17b-128e-instruct"
+    },
+    {
+      "name": "DeepSeek-R1",
+      "provider": "DeepSeek",
+      "releaseDate": "2025-06",
+      "scores": {
+        "arena_elo": 1372,
+        "mmlu": 89.5,
+        "humaneval": 88.4,
+        "swe_bench": 49.2,
+        "math": 97.3,
+        "gpqa": 71.5
+      },
+      "arenaVariant": "deepseek-r1"
+    },
+    {
+      "name": "Qwen3 235B",
+      "provider": "Alibaba",
+      "releaseDate": "2025-09",
+      "scores": {
+        "arena_elo": 1366,
+        "mmlu": 86.1,
+        "humaneval": 84.2,
+        "swe_bench": 35.6,
+        "math": 82.1,
+        "gpqa": 58.3
+      },
+      "arenaVariant": "qwen3-235b-a22b"
+    },
+    {
+      "name": "Mistral Large 2",
+      "provider": "Mistral",
+      "releaseDate": "2025-07",
+      "scores": {
+        "arena_elo": 1265,
+        "mmlu": 84.0,
+        "humaneval": 82.8,
+        "swe_bench": 28.5,
+        "math": 69.5,
+        "gpqa": 52.8
+      },
+      "arenaVariant": "mistral-large-2411"
+    },
+    {
+      "name": "Grok-3",
+      "provider": "xAI",
+      "releaseDate": "2025-10",
+      "scores": {
+        "arena_elo": 1425,
+        "mmlu": 89.0,
+        "humaneval": 87.1,
+        "swe_bench": 45.3,
+        "math": 83.2,
+        "gpqa": 63.7
+      },
+      "arenaVariant": "grok-3-preview-02-24"
+    },
+    {
+      "name": "Grok-4",
+      "provider": "xAI",
+      "releaseDate": "2025-12",
+      "scores": {
+        "arena_elo": 1456,
+        "mmlu": null,
+        "humaneval": null,
+        "swe_bench": null,
+        "math": null,
+        "gpqa": null
+      },
+      "arenaVariant": "grok-4.20-beta-0309-reasoning"
+    }
+  ]
+}
